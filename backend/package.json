@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for a note taking web application that allows users to create, manage and collaborate on rich text notes in realtime with secure authentication and full search capabilities.",
+  "license": "ISC",
+  "author": "K.A.I.P.Kulasooriya",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.4",
+    "validator": "^13.15.26"
+  }
+}

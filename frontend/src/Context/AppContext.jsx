@@ -31,9 +31,7 @@ export const AppContextProvider = ({ children }) => {
            if (response.data.success) {
              setUser(response.data.user);
            }
-           console.log("User Fetched");
          }
-         console.log("Token Fetched")
        };
        getTokenFromStorage();
      }, []);

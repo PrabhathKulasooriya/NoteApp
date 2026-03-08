@@ -53,7 +53,6 @@ export const createUser = async (req, res) =>{
 //User Login 
     export const loginUser = async(req, res)=>{
         const {email,password} = req.body;
-        console.log("attempting to login user");
         try{
 
             if(!email || !password){

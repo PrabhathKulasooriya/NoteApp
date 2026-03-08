@@ -13,7 +13,7 @@ app.use(cors());
 
 await connectDB();
 
-app.use('/user',userRouter)
+app.use('/api/user',userRouter)
 
 app.get("/", (req, res) => {
     res.send(`Backend is working`);

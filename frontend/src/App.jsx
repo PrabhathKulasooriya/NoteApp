@@ -5,6 +5,7 @@ import UserAccount from "./Components/UserAccount";
 import Sidebar from "./Components/Sidebar";
 import { useAppContext } from "./Context/AppContext";
 import Login from "./Components/Login";
+import Note from "./Components/Note";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -32,7 +33,6 @@ function App() {
 
   return (
     <div className="flex flex-row h-screen w-screen justify-start items-start max-w-screen overflow-x-hidden relative dark:bg-gray-900">
-
       {loading && (
         <div className="fixed inset-0 bg-white z-100 flex items-center justify-center">
           <div className="flex flex-col items-center gap-4">
@@ -42,17 +42,17 @@ function App() {
         </div>
       )}
 
-
       <Toaster position="top-center" reverseOrder={false} />
       {showLogin && <Login />}
       <Sidebar />
 
-      <Routes>
-        <Route path="/" element={<MainSection />} />
-        <Route path="/user" element={<UserAccount />} />
-      </Routes>
-
-      
+      <div className="flex-1 h-full overflow-hidden">
+        <Routes>
+          <Route path="/" element={<MainSection />} />
+          <Route path="/user" element={<UserAccount />} />
+          <Route path="/note/:id" element={<Note />} />
+        </Routes>
+      </div>
     </div>
   );
 }

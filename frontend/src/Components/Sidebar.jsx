@@ -46,13 +46,10 @@ const Sidebar = () => {
             </span>
           </div>
 
-          {/* New Note Button */}
-          <button
-            className="flex justify-center items-center w-full py-2 mt-10 text-white 
-            bg-blue-600 hover:bg-blue-700 text-sm rounded-md cursor-pointer"
-          >
-            <span className="mr-2 text-2xl">+</span> Add Note
-          </button>
+          {/* Buttons */}
+          <div>
+
+          </div>
         </div>
 
         {/* Bottom Section */}

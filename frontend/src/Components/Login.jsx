@@ -6,7 +6,7 @@ import {useAppContext} from "../Context/AppContext.jsx";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login"); 
-  const { setLoading, setShowLogin, setToken, setUser } = useAppContext();
+  const { setLoading, setShowLogin, setToken, setUser, fetchNotes } = useAppContext();
   const [data, setdata] = useState({
     name: "",
     email: "",
@@ -66,6 +66,7 @@ const Login = () => {
           setToken(response.data.token);
           setUser(response.data.user);
           localStorage.setItem("token", response.data.token);
+          fetchNotes(response.data.token);
           toast.success("User logged in successfully!");
           setShowLogin(false);
         } else {

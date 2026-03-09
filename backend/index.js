@@ -3,6 +3,7 @@ import connectDB from "./config/db.js";
 import cors from "cors";
 import "dotenv/config";
 import userRouter from "./routes/userRoutes.js";
+import notesRouter from "./routes/notesRoutes.js";
 
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors());
 await connectDB();
 
 app.use('/api/user',userRouter)
+app.use('/api/notes',notesRouter)
 
 app.get("/", (req, res) => {
     res.send(`Backend is working`);

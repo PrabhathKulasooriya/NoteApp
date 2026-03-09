@@ -39,7 +39,7 @@ export const createUser = async (req, res) =>{
         });
 
         const user = await newUser.save();
-        const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET,{expiresIn: "3d"});
+        const token = jwt.sign({_id: user._id, email: user.email}, process.env.JWT_SECRET,{expiresIn: "3d"});
 
         return res.status(201).json({success: true, message: "User created successfully", user:user, token:token});
 
@@ -71,7 +71,7 @@ export const createUser = async (req, res) =>{
                 return res.status(400).json({success: false, message: "Incorrect password"});
             }
 
-            const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET,{expiresIn: "3d"});
+            const token = jwt.sign({_id: user._id, email: user.email}, process.env.JWT_SECRET,{expiresIn: "3d"});
 
             return res.status(200).json({success: true, message: "User logged in successfully", user:user, token:token});
 

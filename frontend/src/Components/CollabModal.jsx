@@ -43,7 +43,6 @@ const CollabModal = ({ setModalOpen, note }) => {
     setLoading(true);
 
     try {
-      
       const response = await axios.post(
         `/api/notes/addCollaborators/${note._id}`,
         {collaborators: collaborators},
@@ -53,11 +52,13 @@ const CollabModal = ({ setModalOpen, note }) => {
       );
 
       if (response.data.success) {
-        toast.success("Collaborators updated successfully");
         fetchNotes(token);
         setModalOpen(false)
+        setLoading(false);
+        toast.success("Collaborators updated successfully");
       }
     } catch (error) {
+      setLoading(false)
       console.log(error);
       toast.error(
         error.response?.data?.message || "Failed to update collaborators",

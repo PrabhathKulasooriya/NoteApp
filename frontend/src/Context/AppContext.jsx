@@ -16,6 +16,7 @@ export const AppContextProvider = ({ children }) => {
 
   const fetchNotes = async (authtoken) => {
     try {
+      setLoading(true);
       const response = await axios.get("/api/notes/get", {
         headers: { token: authtoken },
       });
@@ -23,6 +24,7 @@ export const AppContextProvider = ({ children }) => {
         setNotes(response.data.notes);
         setSharedNotes(response.data.sharedNotes);
       }
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }

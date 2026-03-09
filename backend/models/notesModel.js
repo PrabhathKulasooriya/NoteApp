@@ -36,6 +36,10 @@ const notesSchema = new mongoose.Schema(
       type: [String],
       required: false,
     },
+    lastEditBy: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true },
 );

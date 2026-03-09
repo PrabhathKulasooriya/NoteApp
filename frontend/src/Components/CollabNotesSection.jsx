@@ -2,79 +2,32 @@ import React, { useState } from "react";
 import {
   Calendar,
   Tag,
-  Trash2,
-  NotebookPen,
   Eye,
   SquarePen,
-  UserPlus,
-  Trash,
   LogIn,
 } from "lucide-react";
 
 import { useAppContext } from "../Context/AppContext";
 import { Link } from "react-router-dom";
-import NoteModal from "./NoteModal";
+import CollabNoteModal from "./CollabNoteModal";
 import logo from "../assets/logo.png";
 import { format } from "date-fns";
-import CollabModal from "./CollabModal";
-import toast from "react-hot-toast";
+
 
 const stripHtml = (html) => {
   const doc = new DOMParser().parseFromString(html, "text/html");
   return doc.body.textContent || "";
 };
 
-const NotesSection = () => {
-  
+const CollabNotesSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [noteToEdit, setNoteToEdit] = useState(null);
-  const [isCollabModalOpen, setIsCollabModalOpen] = useState(false);
-  const [noteToShare, setNoteToShare] = useState(null);
 
-  const { searchTerm, notes, styles, token, setShowLogin, deleteNote } = useAppContext();
+  const { searchTerm, sharedNotes, styles, token, setShowLogin } =
+    useAppContext();
 
-  const handleShareNote = (note) => {
-    setNoteToShare(note);
-    setIsCollabModalOpen(true);
-  };
 
-  // Delete confirmation
-  const confirmDelete = (noteId) => {
-    toast(
-      (t) => (
-        <div className="flex flex-col gap-3">
-          <p className="font-medium text-slate-800 ">
-            Are you sure you want to delete this note?
-          </p>
-          <div className="flex justify-end gap-2">
-            {/* Cancel Button */}
-            <button
-              onClick={() => toast.dismiss(t.id)}
-              className="px-3 py-1.5 text-sm font-medium text-slate-800 bg-slate-100 hover:bg-slate-200  dark:hover:bg-slate-600 rounded-lg transition-colors"
-            >
-              Cancel
-            </button>
-            {/* Confirm Button */}
-            <button
-              onClick={() => {
-                toast.dismiss(t.id); 
-                deleteNote(noteId); 
-              }}
-              className="px-3 py-1.5 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      ),
-      {
-        duration: Infinity,
-        id: `delete-${noteId}`, // Prevents spamming multiple toasts for the same note
-      },
-    );
-  };
-
-  const filteredNotes = notes.filter((note) => {
+  const filteredNotes = sharedNotes.filter((note) => {
     const term = searchTerm.toLowerCase();
     const plainContent = stripHtml(note.content).toLowerCase();
 
@@ -89,14 +42,8 @@ const NotesSection = () => {
     return styles[category] || "bg-gray-100 text-gray-700";
   };
 
- 
-  const handleCreateNew = () => {
-    setNoteToEdit(null); 
-    setIsModalOpen(true);
-  };
-
   const handleEditNote = (note) => {
-    setNoteToEdit(note); 
+    setNoteToEdit(note);
     setIsModalOpen(true);
   };
 
@@ -140,19 +87,6 @@ const NotesSection = () => {
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4 ">
-      {/* New Note Button */}
-      <div className="w-full flex justify-end mb-2">
-        <button
-          className="border p-2 mb-4 rounded-md flex flex-row gap-2 text-blue-500 dark:text-blue-400 dark:bg-slate-800 h-10 transition-all duration-300 hover:bg-blue-100 dark:hover:bg-slate-700 hover:scale-105"
-          onClick={handleCreateNew}
-        >
-          <NotebookPen className="w-5 h-5" />
-          <p className="group-hover:text-blue-600 transition-all duration-300 font-bold">
-            New Note
-          </p>
-        </button>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {token && filteredNotes.length === 0 && (
           <p className="col-span-3 text-center text-gray-400 dark:text-slate-500 py-16">
@@ -163,10 +97,10 @@ const NotesSection = () => {
         {filteredNotes.map((note) => (
           <div
             key={note._id}
-            className="group relative p-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block"
+            className="group flex flex-col items-start justify-between relative p-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block"
           >
             {/* Category Badge */}
-            <div className="flex justify-between items-start mb-4">
+            <div className="flex justify-between items-start mb-4 w-full">
               <span
                 className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${getCategoryStyle(note.category)}`}
               >
@@ -180,17 +114,18 @@ const NotesSection = () => {
             </div>
 
             {/* Note Content */}
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 ">
-              {note.title}
-            </h3>
-            
-            <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed line-clamp-3 overflow-hidden">
-              {stripHtml(note.content)}
-            </p>
+            <div className="">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 ">
+                {note.title}
+              </h3>
+
+              <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed line-clamp-3 overflow-hidden max-w-9/10 ">
+                {stripHtml(note.content)}
+              </p>
+            </div>
 
             {/* Options */}
-            <div className="flex flex-row justify-around items-center mt-4 dark:text-slate-400">
-              
+            <div className="flex flex-row justify-center items-center w-full gap-12 items-center mt-4 dark:text-slate-400">
               <Link to={`/note/${note._id}`}>
                 <Eye className="hover:text-blue-600 cursor-pointer" />
               </Link>
@@ -198,31 +133,19 @@ const NotesSection = () => {
               <div onClick={() => handleEditNote(note)}>
                 <SquarePen className="hover:text-yellow-600 cursor-pointer" />
               </div>
-
-              <div onClick={() => handleShareNote(note)}>
-                <UserPlus className="hover:text-green-600 cursor-pointer" />
-              </div>
-              <div onClick={()=> confirmDelete(note._id)}>
-                <Trash className="hover:text-red-600 cursor-pointer" />
-              </div>
             </div>
           </div>
         ))}
       </div>
 
       {isModalOpen && (
-        <NoteModal setModalOpen={setIsModalOpen} existingNote={noteToEdit} />
-      )}
-
-      {isCollabModalOpen && (
-        <CollabModal
-          setModalOpen={setIsCollabModalOpen}
-          note={noteToShare}
+        <CollabNoteModal
+          setModalOpen={setIsModalOpen}
+          existingNote={noteToEdit}
         />
       )}
-
     </div>
   );
 };
 
-export default NotesSection;
+export default CollabNotesSection;

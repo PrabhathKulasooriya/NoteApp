@@ -14,6 +14,31 @@
   }
 }
 
+/* React Quill Dark Mode Fixes */
+.dark .ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px solid #334155;
+  background-color: #1e293b; 
+}
+
+.dark .ql-container.ql-snow {
+  border: none;
+  min-height: 150px;
+}
+
+.dark .ql-snow .ql-stroke {
+  stroke: #94a3b8; 
+}
+
+.dark .ql-snow .ql-fill, 
+.dark .ql-snow .ql-stroke.ql-fill {
+  fill: #94a3b8;
+}
+
+.dark .ql-snow .ql-picker {
+  color: #94a3b8;
+}
+
 *{
     box-sizing: border-box;
     font-family: 'Outfit', sans-serif;

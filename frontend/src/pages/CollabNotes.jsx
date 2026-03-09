@@ -1,15 +1,13 @@
 import React from "react";
 import { Search, X } from "lucide-react";
 import { useAppContext } from "../Context/AppContext";
-import NotesSection from "./NotesSection";
+import CollabNotesSection from "../Components/collabNotesSection";
 
-const MainSection = () => {
+const CollabNotes = () => {
   const { searchTerm, setSearchTerm } = useAppContext();
 
   return (
-  
     <div className="w-full h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-300 overflow-hidden">
-    
       <div className="w-full p-4 flex justify-center border-b border-gray-100 dark:border-slate-800 shrink-0">
         <div className="relative w-2/3 max-w-2xl group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
@@ -34,10 +32,10 @@ const MainSection = () => {
       </div>
 
       <div className="flex flex-grow overflow-y-auto custom-scrollbar">
-          <NotesSection />
+        <CollabNotesSection />
       </div>
     </div>
   );
 };
 
-export default MainSection;
+export default CollabNotes;

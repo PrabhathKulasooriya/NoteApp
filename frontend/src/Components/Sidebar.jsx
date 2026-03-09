@@ -1,6 +1,6 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
-import { SunMedium, Moon, UserRound, X, Menu, LogOut, LogIn } from "lucide-react";
+import { SunMedium, Moon, UserRound, X, Menu, LogOut, LogIn, FileText, Users } from "lucide-react";
 import { useAppContext } from "../Context/AppContext";
 import { Link } from "react-router-dom";
 
@@ -41,7 +41,6 @@ const Sidebar = () => {
       {/* Sidebar */}
       <div
         className={`flex flex-col justify-between h-screen w-72 shrink-0 p-5 
-          dark:bg-gradient-to-b from-[#242124]/30 to-[#000000]/30 
           border-r border-[#80609f]/30 backdrop-blur-3xl 
           transition-transform duration-300 
           max-md:fixed left-0 top-0 z-20  
@@ -52,11 +51,42 @@ const Sidebar = () => {
           {/* Logo */}
           <div className="flex items-center gap-6">
             <img src={logo} alt="Notely Logo" className="w-10 h-10" />
-            <span className="text-blue-500 text-3xl md:text-4xl font-bold">Notely</span>
+            <span className="text-blue-500 text-3xl md:text-4xl font-bold">
+              Notely
+            </span>
           </div>
 
           {/* Buttons */}
-          <div></div>
+
+          <div className="mt-8 flex flex-col gap-3">
+            <Link
+              to="/"
+              onClick={() => setIsMenuOpen(false)}
+              className="flex items-center gap-3 p-3 border border-gray-300 dark:border-white/15 rounded-md dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-white/10 transition-all duration-300 group "
+            >
+              <FileText
+                size={20}
+                className="text-blue-500 group-hover:scale-110 transition-transform"
+              />
+              <span className="font-semibold dark:text-slate-300">
+                My Notes
+              </span>
+            </Link>
+
+            <Link
+              to="/shared"
+              onClick={() => setIsMenuOpen(false)}
+              className="flex items-center gap-3 p-3 border border-gray-300 dark:border-white/15 rounded-md dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-white/10 transition-all duration-300 group"
+            >
+              <Users
+                size={20}
+                className="text-blue-500 group-hover:scale-110 transition-transform"
+              />
+              <span className="font-semibold dark:text-slate-300">
+                Shared Notes
+              </span>
+            </Link>
+          </div>
         </div>
 
         {/* Bottom Section */}

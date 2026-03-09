@@ -12,6 +12,7 @@ export const AppContextProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [notes, setNotes] = useState([]);
+  const [sharedNotes, setSharedNotes] = useState([]);
 
   const fetchNotes = async (authtoken) => {
     try {
@@ -19,13 +20,14 @@ export const AppContextProvider = ({ children }) => {
         headers: { token: authtoken },
       });
       if (response.data.success) {
-        console.log(response.data.notes);
         setNotes(response.data.notes);
+        setSharedNotes(response.data.sharedNotes);
       }
     } catch (error) {
       console.log(error);
     }
   }
+
 
   // Change Theme
   useEffect(() => {
@@ -72,6 +74,21 @@ export const AppContextProvider = ({ children }) => {
     }, 500);
   };
 
+  // Delete Note
+  const deleteNote = async (id) => {
+    try {
+      const response = await axios.delete(`/api/notes/delete/${id}`, {
+        headers: { token: token },
+      });
+      if (response.data.success) {
+        toast.success(response.data.message);
+        fetchNotes(token);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   
   const styles = {
     Personal:
@@ -102,7 +119,9 @@ export const AppContextProvider = ({ children }) => {
     setSearchTerm,
     notes,
     styles,
-    fetchNotes
+    fetchNotes,
+    deleteNote,
+    sharedNotes,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

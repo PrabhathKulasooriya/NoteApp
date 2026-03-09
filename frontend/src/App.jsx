@@ -50,7 +50,6 @@ function App() {
       <div className="flex-1 h-full overflow-hidden">
         <Routes>
           <Route path="/" element={<MainSection />} />
-          <Route path="/user" element={<UserAccount />} />
           <Route path="/note/:id" element={<Note />} />
           <Route path="/shared" element={<CollabNotes />} />
         </Routes>

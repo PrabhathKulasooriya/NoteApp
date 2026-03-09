@@ -4,11 +4,13 @@ import { useAppContext } from "../Context/AppContext";
 import { Link } from "react-router-dom";
 import {NotebookPen} from "lucide-react";
 import NewNoteModal from "./NewNoteModal";
+import { LogIn, Sparkles, Lock } from "lucide-react";
+import logo from "../assets/logo.png";
 
 const NotesSection = () => {
 
   const [newNoteModal, setNewNoteModal] = useState(false);
-  const { searchTerm, notes, styles, token  } = useAppContext();
+  const { searchTerm, notes, styles, token, setShowLogin  } = useAppContext();
 
   const filteredNotes = notes.filter((note) => {
     const term = searchTerm.toLowerCase();
@@ -16,15 +18,64 @@ const NotesSection = () => {
       note.title.toLowerCase().includes(term) ||
       note.content.toLowerCase().includes(term) ||
       note.category.toLowerCase().includes(term)
-    );
-  });
+      );
+    });
 
   
-  const getCategoryStyle = (category) => {
-    return styles[category] || "bg-gray-100 text-gray-700";
-  };
+    const getCategoryStyle = (category) => {
+      return styles[category] || "bg-gray-100 text-gray-700";
+    };
 
-  return (
+    if (!token){
+      return (
+        <div className="flex-1 w-full flex items-center justify-center p-6 transition-colors duration-300">
+          <div className="max-w-md w-full text-center space-y-8 animate-in fade-in zoom-in duration-500">
+            
+            <div className="space-y-3">
+              <div className="relative inline-block">
+                
+                <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full" />
+                <div className="relative w-20 h-20 mx-auto bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-3xl shadow-xl flex items-center justify-center">
+                  <img src={logo} alt="" />
+                </div>
+                
+              </div>
+
+              <h1 className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+                Welcome to <span className="text-blue-500">Notely</span>
+              </h1>
+              <p className="text-slate-500 dark:text-slate-400 text-lg leading-relaxed">
+                Your personal space for taking notes.
+              </p>
+            </div>
+
+            {/* Action Card */}
+            <div className="p-8 bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-700/50 rounded-[2rem] space-y-6 shadow-sm">
+              <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
+                Sign in to access your saved notes and collaborate with your
+                team.
+              </p>
+
+              <button
+                onClick={() => setShowLogin(true)}
+                className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-blue-600 text-white font-semibold rounded-2xl 
+                       hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 active:scale-[0.98] transition-all"
+              >
+                <LogIn className="w-5 h-5" />
+                Get Started
+              </button>
+            </div>
+
+            {/* Subtle Footer */}
+            <p className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-widest font-bold">
+              Secure • Collaborative • Fast
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
     <div className="w-full max-w-7xl mx-auto p-4 ">
       {/* New Note Button */}
       <div className="w-full flex justify-end mb-2">
@@ -80,6 +131,8 @@ const NotesSection = () => {
       {newNoteModal && <NewNoteModal {...{setNewNoteModal}}/>}
     </div>
   );
+
+  
 };
 
 export default NotesSection;

@@ -2,10 +2,21 @@ import { useState } from "react";
 import logo from "../assets/logo.png";
 import { SunMedium, Moon, UserRound, X, Menu, LogOut, LogIn } from "lucide-react";
 import { useAppContext } from "../Context/AppContext";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, setTheme, user, setShowLogin, logout } = useAppContext();
+
+  const changeTheme = ()=>{
+    if (theme === "dark") {
+      setTheme("light");
+      localStorage.setItem("theme", "light");
+    } else {
+      setTheme("dark");
+      localStorage.setItem("theme", "dark");
+    }
+  }
 
   return (
     <>
@@ -41,15 +52,11 @@ const Sidebar = () => {
           {/* Logo */}
           <div className="flex items-center gap-6">
             <img src={logo} alt="Notely Logo" className="w-10 h-10" />
-            <span className="text-3xl font-bold tracking-tight text-blue-600">
-              NOTELY
-            </span>
+            <span className="text-blue-500 text-3xl md:text-4xl font-bold">Notely</span>
           </div>
 
           {/* Buttons */}
-          <div>
-
-          </div>
+          <div></div>
         </div>
 
         {/* Bottom Section */}
@@ -67,7 +74,7 @@ const Sidebar = () => {
                 type="checkbox"
                 className="sr-only peer"
                 checked={theme === "dark"}
-                onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+                onChange={changeTheme}
               />
               <div className="w-9 h-5 bg-gray-400 rounded-full peer-checked:bg-blue-600 transition-all" />
               <span className="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform peer-checked:translate-x-4" />
@@ -78,7 +85,7 @@ const Sidebar = () => {
           <div className="flex flex-row items-center gap-3 p-3 mt-4 border border-gray-300 dark:border-white/15 rounded-md ">
             {user ? (
               <div className="flex flex-row w-full justify-between items-center ">
-                <div className="flex flex-row items-center gap-2">
+                <Link to={"/user"} className="flex flex-row items-center gap-2">
                   <div className="p-2 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold border border-blue-200">
                     <UserRound size={30} />
                   </div>
@@ -87,7 +94,7 @@ const Sidebar = () => {
                       {user.name}
                     </p>
                   </div>
-                </div>
+                </Link>
 
                 <div
                   className=" text-gray-700 dark:text-gray-200 hover:scale-115  duration-300"

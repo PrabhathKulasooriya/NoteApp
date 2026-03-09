@@ -8,7 +8,7 @@ const MainSection = () => {
 
   return (
   
-    <div className="w-full h-full flex flex-col bg-white dark:bg-slate-900 transition-colors duration-300 overflow-hidden">
+    <div className="w-full h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-300 overflow-hidden">
     
       <div className="w-full p-4 flex justify-center border-b border-gray-100 dark:border-slate-800 shrink-0">
         <div className="relative w-2/3 max-w-2xl group">
@@ -33,10 +33,8 @@ const MainSection = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto custom-scrollbar">
-        <div className="py-2">
+      <div className="flex flex-grow overflow-y-auto custom-scrollbar">
           <NotesSection />
-        </div>
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ const NewNoteModal = ({ setNewNoteModal }) => {
   const [category, setCategory] = useState("");
   const [collaborators, setCollaborators] = useState("");
 
-  const { token, setLoading } = useAppContext();
+  const { token, setLoading, fetchNotes,} = useAppContext();
   
 
   const handleBackdropClick = (e) => {
@@ -44,6 +44,7 @@ const NewNoteModal = ({ setNewNoteModal }) => {
     if(response.data.success){
         setLoading(false);
       toast.success(response.data.message);
+      fetchNotes
 
       setTimeout(()=>{
         setNewNoteModal(false);

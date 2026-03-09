@@ -6,7 +6,7 @@ const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("");
   const [user, setUser] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
   const [token, setToken] = useState("");
@@ -29,12 +29,16 @@ export const AppContextProvider = ({ children }) => {
 
   // Change Theme
   useEffect(() => {
-    if (theme === "dark") {
+    const storedtheme = localStorage.getItem("theme");
+    if(storedtheme){setTheme(storedtheme);}
+    if (storedtheme === "dark") {
       document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
-    localStorage.setItem("theme", theme);
+    
   }, [theme]);
 
   //Get Token from Local Storage and Fetch Notes

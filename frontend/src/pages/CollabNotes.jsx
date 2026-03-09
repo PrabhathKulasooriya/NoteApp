@@ -1,7 +1,7 @@
 import React from "react";
 import { Search, X } from "lucide-react";
 import { useAppContext } from "../Context/AppContext";
-import CollabNotesSection from "../Components/collabNotesSection";
+import CollabNotesSection from "../Components/CollabNotesSection";
 
 const CollabNotes = () => {
   const { searchTerm, setSearchTerm } = useAppContext();

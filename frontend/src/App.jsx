@@ -11,7 +11,7 @@ import CollabNotes from "./pages/CollabNotes";
 function App() {
 
   const location = useLocation();
-  const {user, showLogin, loading, setLoading,} = useAppContext();
+  const { showLogin, loading, setLoading,} = useAppContext();
  
 
   useEffect(() => {

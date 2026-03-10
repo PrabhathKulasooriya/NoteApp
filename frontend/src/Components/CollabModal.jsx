@@ -32,7 +32,7 @@ const CollabModal = ({ setModalOpen, note }) => {
     }
 
     setCollaborators([...collaborators, trimmedEmail]);
-    setEmailInput(""); // Clear the input
+    setEmailInput(""); 
   };
 
   const handleRemoveEmail = (emailToRemove) => {

@@ -97,7 +97,7 @@ const Note = () => {
               </div>
               <div>
                 <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">
-                  created at
+                  Owner
                 </p>
                 <div className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                   {note.createdAt

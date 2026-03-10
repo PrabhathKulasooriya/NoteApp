@@ -119,7 +119,7 @@ const CollabNotesSection = () => {
                 {note.title}
               </h3>
 
-              <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed line-clamp-3 overflow-hidden max-w-9/10 ">
+              <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed line-clamp-3 max-w-85 overflow-x-hidden">
                 {stripHtml(note.content)}
               </p>
             </div>

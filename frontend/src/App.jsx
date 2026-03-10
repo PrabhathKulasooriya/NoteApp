@@ -1,7 +1,6 @@
 import {useState, useEffect} from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import MainSection from "./pages/MainSection";
-import UserAccount from "./pages/UserAccount";
 import Sidebar from "./Components/Sidebar";
 import { useAppContext } from "./Context/AppContext";
 import Login from "./Components/Login";

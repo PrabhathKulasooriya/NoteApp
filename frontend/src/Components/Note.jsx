@@ -100,16 +100,16 @@ const Note = () => {
                   Owner
                 </p>
                 <div className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5" />
+                  {note.author}
+                </div>
+                <span className="flex items-center gap-1.5 text-slate-500 text-sm dark:text-slate-400 mt-0.5">
                   {note.createdAt
                     ? format(
                         new Date(note.createdAt),
                         "MMM d, yyyy 'at' h:mm a",
                       )
                     : "Unknown date"}
-                </div>
-                <span className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 mt-0.5">
-                  <User className="w-3.5 h-3.5" />
-                  {note.author}
                 </span>
               </div>
             </div>
@@ -126,16 +126,16 @@ const Note = () => {
                   </p>
                   <div className="text-sm font-medium text-slate-700 dark:text-slate-300 flex flex-col gap-1">
                     <span className="flex items-center gap-1.5">
+                      <User className="w-3.5 h-3.5" />
+                      {note.lastEditBy}
+                    </span>
+                    <span className="flex items-center text-sm gap-1.5 text-slate-500 dark:text-slate-400 mt-0.5">
                       {note.updatedAt
                         ? format(
                             new Date(note.updatedAt),
                             "MMM d, yyyy 'at' h:mm a",
                           )
                         : "Unknown date"}
-                    </span>
-                    <span className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 mt-0.5">
-                      <User className="w-3.5 h-3.5" />
-                      {note.lastEditBy}
                     </span>
                   </div>
                 </div>

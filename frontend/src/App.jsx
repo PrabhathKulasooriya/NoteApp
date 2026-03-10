@@ -7,11 +7,12 @@ import Login from "./Components/Login";
 import Note from "./Components/Note";
 import { Toaster } from "react-hot-toast";
 import CollabNotes from "./pages/CollabNotes";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
 
   const location = useLocation();
-  const { showLogin, loading, setLoading,} = useAppContext();
+  const { showLogin, loading, setLoading, token} = useAppContext();
  
 
   useEffect(() => {
@@ -49,8 +50,10 @@ function App() {
       <div className="flex-1 h-full overflow-hidden">
         <Routes>
           <Route path="/" element={<MainSection />} />
-          <Route path="/note/:id" element={<Note />} />
-          <Route path="/shared" element={<CollabNotes />} />
+
+
+          <Route path="/note/:id" element={<ProtectedRoute><Note /> </ProtectedRoute>} />
+          <Route path="/shared" element={<ProtectedRoute><CollabNotes /></ProtectedRoute>} />
         </Routes>
       </div>
     </div>
